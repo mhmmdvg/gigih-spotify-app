@@ -1,16 +1,29 @@
 import "./App.css";
-import data from "./data";
+import React from "react";
+import data from "./data/data";
 import Track from "./components/track-components/Track";
 
 function App() {
   return (
     <div className="App">
-      <div className="Container">
-        <Track
-          image={data.album.images[0].url}
-          title={data.album.name}
-          artist={data.album.artists[0].name}
-        />
+      <h1 className="title">Track List</h1>
+      <div className="Wrapper">
+        {data
+          .filter((track, index, arr) => {
+            return (
+              arr.map((item) => item.album.id).indexOf(track.album.id) === index
+            );
+          })
+          .map(({ album }) => (
+            <React.Fragment key={album.id}>
+              <Track
+                image={album.images[1].url}
+                title={album.name}
+                artist={album.artists[0].name}
+                alt={album.name}
+              />
+            </React.Fragment>
+          ))}
       </div>
     </div>
   );

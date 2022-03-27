@@ -1,14 +1,13 @@
-.App {
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  background-color: #191414;
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+
+body {
+  color: #fff;
+  background-color: #121212;
+  font-family: "Open Sans", sans-serif;
 }
 
-* {
-  padding: 0;
-  margin: 0;
+.App {
+  text-align: center;
 }
 
 .App-logo {
@@ -46,15 +45,36 @@
   }
 }
 
-.Container {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
+/* .table-option {
+  background-color: #191414;
+  margin: 2px;
+  color: #fff;
+} */
+
+.card {
+  background-color: #181818;
+  width: 10px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  padding: 18px;
+  cursor: pointer;
+  border-radius: 4px;
+  word-break: break-all;
+  white-space: normal;
+  transition: 0.2s;
+}
+
+.card:hover {
+  background-color: #212121;
 }
 
 .Wrapper {
-  color: #fff;
-  background-color: #191414;
+  padding-left: 10px;
+  white-space: nowrap;
+  margin: 0 auto;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .Center {
@@ -71,14 +91,20 @@
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 20px;
+  text-align: start;
 }
 
 .Text {
-  font-size: 18px;
-  margin-top: 8px;
+  font-size: 16px;
 }
 
 .Imageopt {
-  width: 100%;
+  box-shadow: 0px 0px 16px #000000;
 }

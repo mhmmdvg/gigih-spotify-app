@@ -1,15 +1,28 @@
 import React from "react";
+import "../../App.css";
 
-const Track = ({ image, title, artist }) => {
+const Track = ({ image, title, artist, alt }) => {
   return (
-    <div className="Wrapper">
-      <img className="Imageopt" src={image} alt="queen" />
+    <>
+      {/* <img className="Imageopt" src={image} alt="queen" />
       <h3>{title}</h3>
       <p className="Text">{artist}</p>
       <div className="Center">
         <button className="Button">Select</button>
-      </div>
-    </div>
+      </div> */}
+
+      <table className="card">
+        <tbody>
+          <tr>
+            <td>
+              <img className="Imageopt" src={image} alt={alt} />
+              <h1 className="Text">{title}</h1>
+              <p className="Text">{artist}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
   );
 };
 
