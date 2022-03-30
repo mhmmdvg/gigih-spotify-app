@@ -1,7 +1,5 @@
 import "./App.css";
 import React from "react";
-import data from "./data/data";
-import Track from "./components/track-components/Track";
 import Auth from "./pages/home/auth/Auth";
 
 function App() {
