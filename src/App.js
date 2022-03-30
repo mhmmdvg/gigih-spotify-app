@@ -2,13 +2,14 @@ import "./App.css";
 import React from "react";
 import data from "./data/data";
 import Track from "./components/track-components/Track";
+import Auth from "./pages/home/auth/Auth";
 
 function App() {
   return (
     <div className="App">
       <h1 className="title">Track List</h1>
-      <div className="Wrapper">
-        {data
+
+      {/* {data
           .filter((track, index, arr) => {
             return (
               arr.map((item) => item.album.id).indexOf(track.album.id) === index
@@ -23,8 +24,9 @@ function App() {
                 alt={album.name}
               />
             </React.Fragment>
-          ))}
-      </div>
+          ))} */}
+
+      <Auth />
     </div>
   );
 }
