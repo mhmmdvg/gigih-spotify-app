@@ -1,12 +1,12 @@
 import "./App.css";
 import React from "react";
-import Auth from "./pages/home/auth/Auth";
+import AuthSpotify from "./pages/auth/AuthSpotify";
+import Auth from "./pages/auth/Auth";
+// import Auth from "./pages/home/auth/Auth";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="title">Track List</h1>
-
       {/* {data
           .filter((track, index, arr) => {
             return (
@@ -24,7 +24,8 @@ function App() {
             </React.Fragment>
           ))} */}
 
-      <Auth />
+      <AuthSpotify />
+      {/* <Auth /> */}
     </div>
   );
 }

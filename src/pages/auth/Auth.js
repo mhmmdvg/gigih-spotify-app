@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Track from "../../../components/track-components/Track";
-import "./search.css";
+import Track from "../../components/track-components/Track";
+// import "./search.css";
 
 // import { loginUrl } from "./Data";
 
