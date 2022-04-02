@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./auth.css";
 import Button from "../../components/button/Button";
 import useAuth from "../../hooks/useAuth";
 import useSearch from "../../hooks/useSearch";
-import Track from "../../components/track-components/Track";
+import Home from "../home/Home";
 
 export default function AuthSpotify() {
   const [token, setToken, logout] = useAuth();
-  const [data, setData] = useState([]);
-  const [searchKey, searchResults, setSearchResults, handleSearch] =
-    useSearch();
-  // const [isSelected, setSelected] = useState(false);
 
   const { REACT_APP_CLIENT_ID } = process.env;
+  const [searchKey, searchResults, setSearchResults, handleSearch] =
+    useSearch();
 
   const redirectToSpotify = () => {
     const scopes = "playlist-modify-private";
@@ -39,10 +37,6 @@ export default function AuthSpotify() {
     // .then((result) => console.log(result.tracks.items));
   };
 
-  if (localStorage.getItem("selected") === null) {
-    localStorage.setItem("selected", JSON.stringify({}));
-  }
-
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
@@ -61,53 +55,14 @@ export default function AuthSpotify() {
     setToken(token);
   });
 
-  useEffect(() => {
-    const getData = () => {
-      const data = JSON.parse(localStorage.getItem("selected"));
-      setData(data);
-    };
-
-    getData();
-  }, [data]);
-
   return (
     <>
       {token && (
-        <>
-          <form className="form-search" onSubmit={searchTrack}>
-            <input
-              className="input-search"
-              onChange={handleSearch}
-              type="text"
-              name="search"
-              placeholder="Search for a song"
-            />
-            <input className="input-submit" type="submit" value="Search" />
-          </form>
-
-          {Object.values(data).length === 0 ? null : <h1>Selected List</h1>}
-          <div className="Wrapper">
-            {data &&
-              Object.values(data).map((track, index) => (
-                <React.Fragment key={index}>
-                  <Track tracks={track} />
-                </React.Fragment>
-              ))}
-          </div>
-          {searchResults.length === 0 ? null : <h1>Track List</h1>}
-          <div className="Wrapper">
-            {searchResults
-              .filter((item) => !(item.id in data))
-              .map((track, index) => (
-                <React.Fragment key={index}>
-                  <Track
-                    tracks={track}
-                    // onClick={handleClick}
-                  />
-                </React.Fragment>
-              ))}
-          </div>
-        </>
+        <Home
+          tracks={searchResults}
+          onChange={handleSearch}
+          onSubmit={searchTrack}
+        />
       )}
 
       {!token ? (

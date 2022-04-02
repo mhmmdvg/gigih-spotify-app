@@ -1,87 +1,83 @@
-// import React, { useState } from "react";
-// import Track from "../../components/track-components/Track";
-// import useAuth from "../../hooks/useAuth";
-// import useSearch from "../../hooks/useSearch";
-// import "./home.css";
+import React, { useState, useEffect } from "react";
+import SearchForm from "../../components/form-search/SearchForm";
+import Track from "../../components/track-components/Track";
 
-// export default function Home({ onSubmit, onChange }) {
-//   const [
-//     searchKey,
-//     searchResults,
-//     setSearchResults,
-//     handleSearch,
-//     searchTrack,
-//   ] = useSearch();
+export default function Home({ onChange, onSubmit, tracks }) {
+  const [selected, setSelected] = useState([]);
+  const [isCombine, setCombine] = useState([]);
 
-//   console.log(searchResults);
-//   // const [token, setToken, searchTrack] = useAuth();
-//   const [selected, setSelected] = useState([]);
+  const handleClick = (track) => {
+    const alreadySelected = selected.find((item) => item.id === track.id);
 
-//   const handleClick = (e) => {
-//     setSelected([...selected, e]);
-//     setSearchResults(searchResults.filter((track) => track !== e));
-//   };
+    if (alreadySelected) {
+      setSelected(selected.filter((t) => t.id !== track.id));
+    } else {
+      setSelected([...selected, track]);
+    }
+  };
 
-//   const deselectClick = (e) => {
-//     setSelected(selected.filter((item) => item !== e));
-//     setSearchResults([...searchResults, e]);
-//   };
+  useEffect(() => {
+    const combineItem = tracks.map((track) => ({
+      ...track,
+      isSelected: selected.find((item) => item.id === track.id),
+    }));
+    setCombine(combineItem);
+  }, [selected, tracks]);
 
-//   // console.log(selected);
+  const renderItem = () => {
+    return (
+      <>
+        {isCombine.map((track, index) => (
+          <React.Fragment key={index}>
+            <Track
+              images={track.album.images[1].url}
+              title={track.name}
+              artist={track.artists[0].name}
+              alt={track.name}
+              onClick={() => handleClick(track)}
+            >
+              {track.isSelected ? "Deselect" : "Select"}
+              {/* {isSelected ? "Deselect" : "Select"} */}
+            </Track>
+          </React.Fragment>
+        ))}
+      </>
+    );
+  };
 
-//   const renderItem = () => {
-//     return (
-//       <>
-//         {searchResults.map((track, index) => (
-//           <React.Fragment key={index}>
-//             <Track
-//               image={track.album.images[0].url}
-//               title={track.name}
-//               artist={track.artists[0].name}
-//               alt={track.name}
-//               onClick={() => handleClick(track)}
-//             >
-//               Select
-//             </Track>
-//           </React.Fragment>
-//         ))}
-//       </>
-//     );
-//   };
+  return (
+    <>
+      {/* <form className="form-search" onSubmit={onSubmit}>
+        <input
+          className="input-search"
+          onChange={onChange}
+          type="text"
+          name="search"
+          placeholder="Search for a song"
+        />
+        <input className="input-submit" type="submit" value="Search" />
+      </form> */}
+      <SearchForm onChange={onChange} onSubmit={onSubmit} />
 
-//   return (
-//     <>
-//       <form className="form-search" onSubmit={onSubmit}>
-//         <input
-//           className="input-search"
-//           onChange={onChange}
-//           type="text"
-//           name="search"
-//           placeholder="Search for a song"
-//         />
-//         <input className="input-submit" type="submit" value="Search" />
-//       </form>
+      {selected.length === 0 ? null : <h1>Selected List</h1>}
+      <div className="Wrapper">
+        {selected.map((track, index) => (
+          <React.Fragment key={index}>
+            <Track
+              images={track.album.images[1].url}
+              title={track.name}
+              artist={track.artists[0].name}
+              alt={track.name}
+              onClick={() => handleClick(track)}
+            >
+              Deselect
+            </Track>
+          </React.Fragment>
+        ))}
+      </div>
 
-//       {selected.length === 0 ? null : <h1>Selected List</h1>}
-//       <div className="Wrapper">
-//         {selected &&
-//           selected.map((track, index) => (
-//             <React.Fragment key={index}>
-//               <Track
-//                 image={track.album.images[1].url}
-//                 title={track.name}
-//                 artist={track.artists[0].name}
-//                 alt={track.name}
-//                 onClick={() => deselectClick(track)}
-//               >
-//                 Deselect
-//               </Track>
-//             </React.Fragment>
-//           ))}
-//       </div>
-
-//       {searchResults.length === 0 ? null : <h1>Track List</h1>}
-//       <div className="Wrapper">{renderItem()}</div>
-//     </>
-//   );
-// }
+      {isCombine.length === 0 ? null : <h1>Track List</h1>}
+      <div className="Wrapper">{renderItem()}</div>
+    </>
+  );
+}
