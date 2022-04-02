@@ -10,7 +10,7 @@ export default function Home({ onChange, onSubmit, tracks }) {
     const alreadySelected = selected.find((item) => item.id === track.id);
 
     if (alreadySelected) {
-      setSelected(selected.filter((t) => t.id !== track.id));
+      setSelected(selected.filter((item) => item.id !== track.id));
     } else {
       setSelected([...selected, track]);
     }
