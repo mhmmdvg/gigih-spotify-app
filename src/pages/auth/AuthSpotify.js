@@ -7,10 +7,9 @@ import Home from "../home/Home";
 
 export default function AuthSpotify() {
   const [token, setToken, logout] = useAuth();
-
-  const { REACT_APP_CLIENT_ID } = process.env;
   const [searchKey, searchResults, setSearchResults, handleSearch] =
     useSearch();
+  const { REACT_APP_CLIENT_ID } = process.env;
 
   const redirectToSpotify = () => {
     const scopes = "playlist-modify-private";
@@ -62,6 +61,7 @@ export default function AuthSpotify() {
           tracks={searchResults}
           onChange={handleSearch}
           onSubmit={searchTrack}
+          token={token}
         />
       )}
 
