@@ -1,23 +1,26 @@
 import React, { useEffect } from "react";
 import "./auth.css";
 import Button from "../../components/button/Button";
-import useAuth from "../../hooks/useAuth";
 import useSearch from "../../hooks/useSearch";
 import Home from "../home/Home";
+import { useDispatch, useSelector } from "react-redux";
+import { tokenAuth } from "../../redux/auth-actions";
+import { redirectToSpotify } from "../../controller/auth";
 
 export default function AuthSpotify() {
-  const [token, setToken, logout] = useAuth();
   const [searchKey, searchResults, setSearchResults, handleSearch] =
     useSearch();
-  const { REACT_APP_CLIENT_ID } = process.env;
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  // const { REACT_APP_CLIENT_ID } = process.env;
 
-  const redirectToSpotify = () => {
-    const scopes = "playlist-modify-private";
-    const redirect_uri = "http://localhost:3000/";
-    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${redirect_uri}&scope=${scopes}&response_type=token&show_dialog=true`;
+  // const redirectToSpotify = () => {
+  //   const scopes = "playlist-modify-private";
+  //   const redirect_uri = "http://localhost:3000/";
+  //   const loginUrl = `https://accounts.spotify.com/authorize?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${redirect_uri}&scope=${scopes}&response_type=token&show_dialog=true`;
 
-    window.location = loginUrl;
-  };
+  //   window.location = loginUrl;
+  // };
 
   const searchTrack = (e) => {
     e.preventDefault();
@@ -36,22 +39,24 @@ export default function AuthSpotify() {
     // .then((result) => console.log(result.tracks.items));
   };
 
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    dispatch(tokenAuth(""));
+  };
+
   useEffect(() => {
     const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
 
-    if (!token && hash) {
-      token = hash
+    if (hash) {
+      const token = hash
         .substring(1)
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
         .split("=")[1];
-
       window.location.hash = "";
-      window.localStorage.setItem("token", token);
+      console.log(token);
+      dispatch(tokenAuth(token));
     }
-
-    setToken(token);
   });
 
   return (

@@ -78,6 +78,8 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
         console.log(data);
         setTrackPlaylist(data.items);
       });
+
+    setSelected([]);
   };
 
   const handleClick = (track) => {
@@ -141,6 +143,7 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
       <h1>Create Playlist</h1>
 
       <p>Name: {isUser.display_name}</p>
+
       <p>ID: {isUser.id}</p>
 
       <form className="form-playlist" onSubmit={createPlaylist}>
@@ -166,7 +169,7 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
       <h3>{isPlaylist.description}</h3>
       <div className="Wrapper">
         {trackPlaylist.map((item, index) => (
-          <React.Fragment key={index}>
+          <React.Fragment key={item.track.id}>
             <Track
               images={item.track.album.images[0].url}
               title={item.track.name}
