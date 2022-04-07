@@ -1,8 +1,10 @@
 const initialState = {
   token: "",
+  user: "",
+  playlist: [],
 };
 
-function authReducer(state = initialState, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
     case "GET_TOKEN":
       return {
@@ -14,4 +16,4 @@ function authReducer(state = initialState, action) {
   }
 }
 
-export default authReducer;
+export default reducer;

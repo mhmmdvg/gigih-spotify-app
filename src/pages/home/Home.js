@@ -3,8 +3,15 @@ import SearchForm from "../../components/form-search/SearchForm";
 import Track from "../../components/track-components/Track";
 import "../../App.css";
 import Button from "../../components/button/Button";
+import useSearch from "../../hooks/useSearch";
+import { useDispatch, useSelector } from "react-redux";
+import { tokenAuth } from "../../redux/actions";
+import { Redirect } from "react-router-dom";
+import CreatePlaylist from "../../components/create-playlist/CreatePlaylist";
 
-export default function Home({ onChange, onSubmit, tracks, token }) {
+export default function Home() {
+  const [searchKey, searchResults, setSearchResults, handleSearch] =
+    useSearch();
   const [selected, setSelected] = useState([]);
   const [isCombine, setCombine] = useState([]);
   // * Untuk mendapatkan current user
@@ -18,6 +25,26 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
     title: "",
     description: "",
   });
+
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const searchTrack = (e) => {
+    e.preventDefault();
+    const url = `https://api.spotify.com/v1/search?q=${searchKey}&type=track`;
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => setSearchResults(result.tracks.items));
+    console.log(token);
+    // console.log(searchResults);
+    // .then((result) => console.log(result.tracks.items));
+  };
 
   const createPlaylist = (e) => {
     e.preventDefault();
@@ -92,6 +119,11 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
     }
   };
 
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    dispatch(tokenAuth(""));
+  };
+
   useEffect(() => {
     const getUsers = async () => {
       const response = await fetch("https://api.spotify.com/v1/me", {
@@ -104,18 +136,23 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
         .then((res) => res.json())
         .then((result) => result);
       setUser(response);
+
       // console.log(response);
     };
     getUsers();
   }, [token]);
 
   useEffect(() => {
-    const combineItem = tracks.map((track) => ({
+    const combineItem = searchResults.map((track) => ({
       ...track,
       isSelected: selected.find((item) => item.id === track.id),
     }));
     setCombine(combineItem);
-  }, [selected, tracks]);
+  }, [selected, searchResults]);
+
+  if (token === "") {
+    return <Redirect to="/" />;
+  }
 
   const renderItem = () => {
     return (
@@ -142,49 +179,16 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
     <>
       <h1>Create Playlist</h1>
 
-      <p>Name: {isUser.display_name}</p>
+      <CreatePlaylist
+        profile={isUser}
+        createSubmit={createPlaylist}
+        handleInput={handleInputPlaylist}
+        inputValue={inputPlaylist}
+        playlist={isPlaylist}
+        trackPlaylist={trackPlaylist}
+      />
 
-      <p>ID: {isUser.id}</p>
-
-      <form className="form-playlist" onSubmit={createPlaylist}>
-        <input
-          type="text"
-          placeholder="Title"
-          name="title"
-          maxLength="10"
-          onChange={handleInputPlaylist}
-          value={inputPlaylist.title}
-        />
-        <textarea
-          type="text"
-          placeholder="Description"
-          name="description"
-          onChange={handleInputPlaylist}
-          value={inputPlaylist.description}
-        />
-        <input type="submit" value="Create Playlist" />
-      </form>
-
-      <h1>{isPlaylist.name} PlayList</h1>
-      <h3>{isPlaylist.description}</h3>
-      <div className="Wrapper">
-        {trackPlaylist.map((item, index) => (
-          <React.Fragment key={item.track.id}>
-            <Track
-              images={item.track.album.images[0].url}
-              title={item.track.name}
-              artist={item.track.artists[0].name}
-              alt={item.track.name}
-            >
-              Play
-            </Track>
-          </React.Fragment>
-        ))}
-      </div>
-
-      {/* <p>{isPlaylist.tracks.total}</p> */}
-
-      <SearchForm onChange={onChange} onSubmit={onSubmit} />
+      <SearchForm onChange={handleSearch} onSubmit={searchTrack} />
 
       {selected.length === 0 ? null : <h1>Selected List</h1>}
 
@@ -209,6 +213,7 @@ export default function Home({ onChange, onSubmit, tracks, token }) {
 
       {isCombine.length === 0 ? null : <h1>Track List</h1>}
       <div className="Wrapper">{renderItem()}</div>
+      <Button onClick={logout}> Log Out</Button>
     </>
   );
 }
