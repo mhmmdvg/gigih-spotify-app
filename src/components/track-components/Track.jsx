@@ -1,8 +1,10 @@
-import React from "react";
-import "../../App.css";
-import Button from "../button/Button";
+import React from 'react';
+import '../../App.css';
+import Button from '../button/Button';
 
-const Track = ({ images, title, artist, onClick, children }) => {
+function Track({
+  images, title, artist, onClick, children,
+}) {
   return (
     <>
       {/* <img className="Imageopt" src={image} alt="queen" />
@@ -26,6 +28,6 @@ const Track = ({ images, title, artist, onClick, children }) => {
       </table>
     </>
   );
-};
+}
 
 export default Track;
