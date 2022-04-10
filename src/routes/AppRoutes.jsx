@@ -25,4 +25,4 @@ function AppRoutes() {
   );
 }
 
-export default AppRoutes;
+export { AppRoutes };

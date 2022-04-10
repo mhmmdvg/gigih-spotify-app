@@ -6,7 +6,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -15,21 +16,18 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "overrides": [
-        {
-          "files": [
-            "**/*.spec.js",
-            "**/*.spec.jsx"
-          ]
-        }
+    "plugins": [
+        "react",
+        "prettier"
     ],
     "rules" : {
-        "react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx"] }],
         "import/prefer-default-export": "off",
         "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off"
-    },
-    "plugins": [
-        "react"
-    ]
+        "react/prop-types": "off",
+        "prettier/prettier": "error"
+
+
+
+
+    }
 }

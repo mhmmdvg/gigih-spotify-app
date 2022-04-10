@@ -9,7 +9,8 @@ import { tokenAuth } from '../../redux/actions';
 import CreatePlaylist from '../../components/create-playlist/CreatePlaylist';
 
 export default function Home() {
-  const [searchKey, searchResults, setSearchResults, handleSearch] = useSearch();
+  const [searchKey, searchResults, setSearchResults, handleSearch] =
+    useSearch();
   const [selected, setSelected] = useState([]);
   const [isCombine, setCombine] = useState([]);
   // * Untuk mendapatkan current user
@@ -39,9 +40,6 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((result) => setSearchResults(result.tracks.items));
-    // console.log(token);
-    // console.log(searchResults);
-    // .then((result) => console.log(result.tracks.items));
   };
 
   const createPlaylist = (e) => {
@@ -60,7 +58,6 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         setPlaylist(data);
       });
   };
@@ -82,11 +79,7 @@ export default function Home() {
       body: JSON.stringify({
         uris: track,
       }),
-    })
-      .then((res) => res.json());
-    // .then((result) => {
-    //   // console.log(result);
-    // });
+    }).then((res) => res.json());
 
     await fetch(
       `https://api.spotify.com/v1/playlists/${isPlaylist.id}/tracks`,
@@ -96,11 +89,10 @@ export default function Home() {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         setTrackPlaylist(data.items);
       });
 
@@ -134,8 +126,6 @@ export default function Home() {
         .then((res) => res.json())
         .then((result) => result);
       setUser(response);
-
-      // console.log(response);
     };
     getUsers();
   }, [token]);
@@ -147,10 +137,6 @@ export default function Home() {
     }));
     setCombine(combineItem);
   }, [selected, searchResults]);
-
-  // if (token === "") {
-  //   return <Redirect to="/" />;
-  // }
 
   const renderItem = () => (
     <>
@@ -164,7 +150,6 @@ export default function Home() {
             onClick={() => handleClick(track)}
           >
             {track.isSelected ? 'Deselect' : 'Select'}
-            {/* {isSelected ? "Deselect" : "Select"} */}
           </Track>
         </React.Fragment>
       ))}

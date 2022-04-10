@@ -27,7 +27,6 @@ export default function AuthSpotify() {
         .find((elem) => elem.startsWith('access_token'))
         .split('=')[1];
       window.location.hash = '';
-      // console.log(token);
       dispatch(tokenAuth(token));
     }
   });
