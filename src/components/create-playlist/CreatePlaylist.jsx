@@ -12,7 +12,8 @@ export default function CreatePlaylist(props) {
   } = props;
 
   return (
-    <>
+    <div className="playlist-container">
+      <h1>Create Playlist</h1>
       <div>
         <h3>{profile.display_name}</h3>
         <p>ID: {profile.id}</p>
@@ -20,6 +21,7 @@ export default function CreatePlaylist(props) {
 
       <form className="form-playlist" onSubmit={createSubmit}>
         <input
+          className="text-input"
           type="text"
           placeholder="Title"
           name="title"
@@ -28,16 +30,22 @@ export default function CreatePlaylist(props) {
           value={inputValue.title}
         />
         <textarea
+          className="text-input"
           type="text"
           placeholder="Description"
           name="description"
           onChange={handleInput}
           value={inputValue.description}
         />
-        <input type="submit" value="Create Playlist" />
+        <input
+          className="create-button"
+          type="submit"
+          value="Create Playlist"
+        />
       </form>
 
-      <h1>{playlist.name} Playlist</h1>
+      {playlist.length === 0 ? null : <h1>{playlist.name} Playlist</h1>}
+
       <h3>{playlist.description}</h3>
       <div className="Wrapper">
         {trackPlaylist.map((item) => (
@@ -53,6 +61,6 @@ export default function CreatePlaylist(props) {
           </React.Fragment>
         ))}
       </div>
-    </>
+    </div>
   );
 }

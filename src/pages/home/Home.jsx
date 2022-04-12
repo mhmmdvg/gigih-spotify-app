@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchForm from '../../components/form-search/SearchForm';
 import Track from '../../components/track-components/Track';
-import '../../App.css';
 import Button from '../../components/button/Button';
 import useSearch from '../../hooks/useSearch';
-import { tokenAuth } from '../../redux/actions';
 import CreatePlaylist from '../../components/create-playlist/CreatePlaylist';
+import { setToken } from '../../redux/slice';
 
 export default function Home() {
   const [searchKey, searchResults, setSearchResults, handleSearch] =
@@ -111,7 +110,7 @@ export default function Home() {
 
   const logout = () => {
     window.localStorage.removeItem('token');
-    dispatch(tokenAuth(''));
+    dispatch(setToken(''));
   };
 
   useEffect(() => {
@@ -143,9 +142,10 @@ export default function Home() {
       {isCombine.map((track) => (
         <React.Fragment key={track.id}>
           <Track
-            images={track.album.images[1].url}
+            images={track.album.images[0].url}
             title={track.name}
             artist={track.artists[0].name}
+            albumName={track.album.name}
             alt={track.name}
             onClick={() => handleClick(track)}
           >
@@ -158,8 +158,6 @@ export default function Home() {
 
   return (
     <>
-      <h1>Create Playlist</h1>
-
       <CreatePlaylist
         profile={isUser}
         createSubmit={createPlaylist}
@@ -173,13 +171,14 @@ export default function Home() {
 
       {selected.length === 0 ? null : <h1>Selected List</h1>}
 
-      <div className="Wrapper">
+      <div className="track-container">
         {selected.map((track) => (
           <React.Fragment key={track.id}>
             <Track
-              images={track.album.images[1].url}
+              images={track.album.images[0].url}
               title={track.name}
               artist={track.artists[0].name}
+              albumName={track.album.name}
               alt={track.name}
               onClick={() => handleClick(track)}
             >
@@ -193,7 +192,7 @@ export default function Home() {
       )}
 
       {isCombine.length === 0 ? null : <h1>Track List</h1>}
-      <div className="Wrapper">{renderItem()}</div>
+      <div className="track-container">{renderItem()}</div>
       <Button onClick={logout}> Log Out</Button>
     </>
   );
