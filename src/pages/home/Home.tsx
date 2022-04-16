@@ -1,21 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import SearchForm from '../../components/form-search/SearchForm';
 import Track from '../../components/track-components/Track';
 import Button from '../../components/button/Button';
-import useSearch from '../../hooks/useSearch';
 import CreatePlaylist from '../../components/create-playlist/CreatePlaylist';
 import { setToken } from '../../redux/slice';
+import { PlayTrackMap } from './type';
+
+type UserType = {
+  id: string;
+  display_name: string;
+};
 
 export default function Home() {
-  const [searchKey, searchResults, setSearchResults, handleSearch] =
-    useSearch();
-  const [selected, setSelected] = useState([]);
-  const [isCombine, setCombine] = useState([]);
+  // const [searchKey, searchResults, setSearchResults, handleSearch] =
+  //   useSearch();
+  const [searchKey, setSearchKey] = useState('');
+  const [searchResults, setSearchResults] = useState<PlayTrackMap[]>([]);
+  const [selected, setSelected] = useState<PlayTrackMap[]>([]);
+  const [isCombine, setCombine] = useState<PlayTrackMap[]>([]);
   // * Untuk mendapatkan current user
-  const [isUser, setUser] = useState('');
+  const [isUser, setUser] = useState<UserType | null>(null);
   // * Untuk membuat playlist
-  const [isPlaylist, setPlaylist] = useState([]);
+  const [isPlaylist, setPlaylist] = useState<{
+    id: string;
+    name: string;
+    description: string;
+  } | null>(null);
   // * Add track to playlist
   const [trackPlaylist, setTrackPlaylist] = useState([]);
 
@@ -24,10 +35,14 @@ export default function Home() {
     description: '',
   });
 
-  const { token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state: RootStateOrAny) => state.auth);
   const dispatch = useDispatch();
 
-  const searchTrack = (e) => {
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchKey(event.target.value);
+  };
+
+  const searchTrack = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = `https://api.spotify.com/v1/search?q=${searchKey}&type=track`;
     fetch(url, {
@@ -41,9 +56,9 @@ export default function Home() {
       .then((result) => setSearchResults(result.tracks.items));
   };
 
-  const createPlaylist = (e) => {
+  const createPlaylist = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(`https://api.spotify.com/v1/users/${isUser.id}/playlists`, {
+    fetch(`https://api.spotify.com/v1/users/${isUser?.id}/playlists`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -61,13 +76,15 @@ export default function Home() {
       });
   };
 
-  const handleInputPlaylist = (e) => {
+  const handleInputPlaylist = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setInputPlaylist({ ...inputPlaylist, [name]: value });
   };
 
   const addToPlayList = async () => {
-    const url = `https://api.spotify.com/v1/playlists/${isPlaylist.id}/tracks`;
+    const url = `https://api.spotify.com/v1/playlists/${isPlaylist?.id}/tracks`;
     const track = selected.map((elem) => elem.uri);
     await fetch(url, {
       method: 'POST',
@@ -81,7 +98,7 @@ export default function Home() {
     }).then((res) => res.json());
 
     await fetch(
-      `https://api.spotify.com/v1/playlists/${isPlaylist.id}/tracks`,
+      `https://api.spotify.com/v1/playlists/${isPlaylist?.id}/tracks`,
       {
         method: 'GET',
         headers: {
@@ -98,7 +115,7 @@ export default function Home() {
     setSelected([]);
   };
 
-  const handleClick = (track) => {
+  const handleClick = (track: PlayTrackMap) => {
     const alreadySelected = selected.find((item) => item.id === track.id);
 
     if (alreadySelected) {
@@ -146,7 +163,6 @@ export default function Home() {
             title={track.name}
             artist={track.artists[0].name}
             albumName={track.album.name}
-            alt={track.name}
             onClick={() => handleClick(track)}
           >
             {track.isSelected ? 'Deselect' : 'Select'}
@@ -160,12 +176,32 @@ export default function Home() {
     <>
       <CreatePlaylist
         profile={isUser}
-        createSubmit={createPlaylist}
-        handleInput={handleInputPlaylist}
-        inputValue={inputPlaylist}
         playlist={isPlaylist}
         trackPlaylist={trackPlaylist}
       />
+
+      <form className="form-playlist" onSubmit={createPlaylist}>
+        <input
+          className="text-input"
+          placeholder="Title"
+          name="title"
+          maxLength={10}
+          onChange={handleInputPlaylist}
+          value={inputPlaylist.title}
+        />
+        <textarea
+          className="text-input"
+          placeholder="Description"
+          name="description"
+          onChange={handleInputPlaylist}
+          value={inputPlaylist.description}
+        />
+        <input
+          className="create-button"
+          type="submit"
+          value="Create Playlist"
+        />
+      </form>
 
       <SearchForm onChange={handleSearch} onSubmit={searchTrack} />
 
@@ -179,7 +215,6 @@ export default function Home() {
               title={track.name}
               artist={track.artists[0].name}
               albumName={track.album.name}
-              alt={track.name}
               onClick={() => handleClick(track)}
             >
               Deselect

@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default function SearchForm(props) {
+type SearchFormType = {
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export default function SearchForm(props: SearchFormType) {
   const { onSubmit, onChange } = props;
 
   return (

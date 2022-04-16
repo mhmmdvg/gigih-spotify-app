@@ -13,20 +13,17 @@ export default function AuthSpotify() {
   const redirectToSpotify = () => {
     const loginUrl = `https://accounts.spotify.com/authorize?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}&response_type=token&show_dialog=true`;
 
-    window.location = loginUrl;
+    window.location.href = loginUrl;
   };
 
   useEffect(() => {
-    const { hash } = window.location;
-
-    if (hash) {
-      const token = hash
-        .substring(1)
-        .split('&')
-        .find((elem) => elem.startsWith('access_token'))
-        .split('=')[1];
-      window.location.hash = '';
-      dispatch(setToken(token));
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const token = params.get('access_token');
+      if (token) {
+        dispatch(setToken(token));
+      }
     }
   });
 

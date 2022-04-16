@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 body {
   color: #fff;
   background-color: #121212;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .App {
@@ -26,6 +26,7 @@ body {
 textarea {
   resize: none;
   width: 185px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .form-playlist {
@@ -50,10 +51,6 @@ textarea {
 .App-link {
   color: #61dafb;
 }
-
-/* .head-information {
-  margin-bottom: 10px;
-} */
 
 @keyframes App-logo-spin {
   from {
@@ -94,7 +91,6 @@ textarea {
 .card-information {
   margin-left: 6%;
   display: flex;
-  text-align: start;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -126,7 +122,7 @@ textarea {
   padding-left: 10px;
   white-space: nowrap;
   /* margin: 0 auto; */
-  text-align: center;
+  text-align: start;
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* grid-column: 2 / 2; */
@@ -200,5 +196,6 @@ textarea {
   border: 0;
   width: 20%;
   padding: 10px;
+  font-family: 'Poppins', sans-serif;
   margin-bottom: 20px;
 }

@@ -1,7 +1,18 @@
 import React from 'react';
 import Button from '../button/Button';
 
-function Track({ images, title, artist, albumName, onClick, children }) {
+type TrackProps = {
+  images: string;
+  title: string;
+  artist: string;
+  albumName: string;
+  onClick: () => void;
+  children: React.ReactNode;
+};
+
+function Track(props: TrackProps) {
+  const { images, title, artist, albumName, onClick, children } = props;
+
   return (
     <table className="card">
       <tbody>
