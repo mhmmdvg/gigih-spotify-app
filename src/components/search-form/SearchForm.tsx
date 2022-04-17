@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 
-type SearchFormType = {
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+type SearchFormProps = {
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function SearchForm(props: SearchFormType) {
+export default function SearchForm(props: SearchFormProps) {
   const { onSubmit, onChange } = props;
 
   return (

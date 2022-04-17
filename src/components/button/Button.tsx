@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 type ButtonProps = {
-  children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
+  children: ReactNode;
 };
 
-export default function Button(props: ButtonProps) {
-  const { children, onClick } = props;
+function Button(props: ButtonProps) {
+  const { onClick, children } = props;
   return (
     <button className="button" type="button" onClick={onClick}>
       {children}
     </button>
   );
 }
+
+export default Button;

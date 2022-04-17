@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Button from '../button/Button';
 
-type TrackProps = {
+interface TrackProps {
   images: string;
   title: string;
   artist: string;
   albumName: string;
-  onClick: () => void;
-  children: React.ReactNode;
-};
+  onClick?: () => void;
+  children: ReactNode;
+}
 
 function Track(props: TrackProps) {
   const { images, title, artist, albumName, onClick, children } = props;
-
   return (
     <table className="card">
       <tbody>

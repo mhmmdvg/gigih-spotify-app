@@ -1,35 +1,31 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from '../../components/button/Button';
-import { setToken } from '../../redux/slice';
+import { setToken } from './authSlice';
 
 const { REACT_APP_CLIENT_ID } = process.env;
 const SCOPES = 'playlist-modify-private';
 const REDIRECT_URI = 'http://localhost:3000/';
 
-export default function AuthSpotify() {
+export default function Auth() {
   const dispatch = useDispatch();
 
-  const redirectToSpotify = () => {
+  const login = () => {
     const loginUrl = `https://accounts.spotify.com/authorize?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}&response_type=token&show_dialog=true`;
-
     window.location.href = loginUrl;
   };
 
   useEffect(() => {
-    if (window.location.hash) {
-      const hash = window.location.hash.substring(1);
-      const params = new URLSearchParams(hash);
-      const token = params.get('access_token');
-      if (token) {
-        dispatch(setToken(token));
-      }
+    const hash = window.location.hash.substring(1).split('&')[0].split('=');
+
+    if (hash[0] === 'access_token') {
+      dispatch(setToken(hash[1]));
     }
   });
 
   return (
     <div className="auth-wrap">
-      <Button onClick={redirectToSpotify}>Login Spotify</Button>
+      <Button onClick={login}>Login Spotify</Button>
     </div>
   );
 }
