@@ -8,14 +8,16 @@ export default function useSearch() {
 
   const { token } = useAppSelector((state) => state.auth);
 
+  console.log(token);
+
   const handleSearch = (key: ChangeEvent<HTMLInputElement>) => {
     setSearchKey(key.target.value);
   };
 
-  const searchTrack = (event: FormEvent<HTMLFormElement>) => {
+  const searchTrack = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const url = `https://api.spotify.com/v1/search?q=${searchKey}&type=track`;
-    fetch(url, {
+    await fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,

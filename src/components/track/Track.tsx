@@ -24,7 +24,9 @@ function Track(props: TrackProps) {
                 <p className="Text">{artist}</p>
               </div>
               <p className="Text">{albumName}</p>
-              <Button onClick={onClick}>{children}</Button>
+              <Button data-testid="click-test" onClick={onClick}>
+                {children}
+              </Button>
             </div>
           </td>
         </tr>

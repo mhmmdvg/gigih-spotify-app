@@ -59,7 +59,7 @@ export default function Home() {
             setSelected([]);
           }}
         >
-          Save to Playlist
+          Add to Playlist
         </Button>
       )}
 

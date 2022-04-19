@@ -157,6 +157,13 @@ textarea {
   margin-bottom: 20px;
 }
 
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 .title {
   font-size: 30px;
   font-weight: bold;
