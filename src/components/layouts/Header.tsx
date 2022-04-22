@@ -1,14 +1,11 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { useCurrentPlaylist } from '../../hooks/useCurrentPlaylist';
 import useSearch from '../../hooks/useSearch';
-
 import DropDown from '../dropdown/DropDown';
 import SearchForm from '../search-form/SearchForm';
 
 export default function Header() {
   const [handleSearch, searchTrack] = useSearch();
-  const [currentPlaylist] = useCurrentPlaylist();
   const location = useLocation();
 
   return (
@@ -18,14 +15,7 @@ export default function Header() {
         {location.pathname === '/home' ? (
           <SearchForm onChange={handleSearch} onSubmit={searchTrack} />
         ) : undefined}
-        {currentPlaylist.map((item) => (
-          <div key={item.id}>
-            {location.pathname === `/playlist/${item.id}` ? (
-              <p className="text-black text-xl text-left">Back</p>
-            ) : undefined}
-          </div>
-        ))}
-
+        {location.pathname === '/playlist' ? <div /> : <div />}
         <DropDown />
       </div>
       <Outlet />
