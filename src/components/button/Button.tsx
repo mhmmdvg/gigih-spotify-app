@@ -10,7 +10,7 @@ function Button(props: ButtonProps) {
   return (
     <button
       data-testid="click-test"
-      className="button"
+      className="p-2 bg-black text-white rounded-md"
       type="button"
       onClick={onClick}
     >

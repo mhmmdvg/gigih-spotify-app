@@ -10,6 +10,7 @@ test('should render Track component', () => {
       artist="Beatles"
       albumName="Abbey Road"
       onClick={() => {}}
+      duration="3:00"
     >
       Test
     </Track>

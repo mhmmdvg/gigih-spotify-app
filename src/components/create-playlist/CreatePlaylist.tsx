@@ -1,33 +1,33 @@
 import React from 'react';
-import Track from '../../components/track/Track';
+// import Track from '../../components/track/Track';
+// import useAddPlaylist from '../../hooks/useAddPlaylist';
 import useCreatePlaylist from '../../hooks/useCreatePlaylist';
 import useInputPlaylist from '../../hooks/useInputPlaylist';
-import { useAppSelector } from '../../reduce/hooks';
-import { TrackPlaylistType } from '../../type';
 
-export default function CreatePlaylist(props: TrackPlaylistType) {
-  const { trackPlaylist } = props;
+export default function CreatePlaylist() {
+  // const [trackPlaylist, addToPlaylist] = useAddPlaylist();
   const [inputPlaylist, handleInputPlaylist] = useInputPlaylist();
   const [createPlaylist] = useCreatePlaylist();
-
-  const { name, description } = useAppSelector((state) => state.createPlaylist);
 
   return (
     <>
       <form
-        className="form-playlist"
+        className="flex flex-col items-start content-center justify-center "
         onSubmit={(event) => createPlaylist(event, inputPlaylist)}
       >
+        <h1 className="text-left mb-6 text-3xl font-extrabold">
+          Create Your Playlist
+        </h1>
         <input
-          className="text-input"
-          placeholder="Title"
+          className="w-full py-4 px-2 mb-6 rounded-md font-extrabold bg-gray-100"
+          placeholder="Playlist Name"
           name="title"
           onChange={handleInputPlaylist}
           value={inputPlaylist.title}
           maxLength={10}
         />
         <textarea
-          className="text-input"
+          className=" w-full h-52 py-4 px-2 mb-6 rounded-md font-extrabold bg-gray-100"
           placeholder="Description"
           name="description"
           onChange={handleInputPlaylist}
@@ -35,14 +35,13 @@ export default function CreatePlaylist(props: TrackPlaylistType) {
         />
 
         <input
-          className="create-button"
+          className="p-2 w-40 text-white rounded-md cursor-pointer bg-black opacity-70 hover:opacity-100 transition-opacity duration-200"
           type="submit"
           value="Create Playlist"
         />
       </form>
-      <h1>{`${name} Playlist`}</h1>
-      <p>{description}</p>
-      <div className="track-container">
+
+      {/* <div className="track-container">
         {trackPlaylist.map((item) => (
           <Track
             key={item.track.id}
@@ -54,7 +53,7 @@ export default function CreatePlaylist(props: TrackPlaylistType) {
             Play
           </Track>
         ))}
-      </div>
+      </div> */}
     </>
   );
 }

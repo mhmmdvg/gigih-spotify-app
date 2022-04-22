@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 body {
-  color: #fff;
-  background-color: #121212;
+  /* color: #fff; */
+  /* background-color: #121212; */
   font-family: 'Poppins', sans-serif;
 }
 
@@ -105,12 +105,9 @@ textarea {
   justify-content: center;
   align-items: center;
 }
-.form-search {
-  margin: 20px;
-}
 
 .auth-wrap {
-  margin-top: 25%;
+  margin-top: 20%;
   width: 100%;
   height: 100%;
   display: flex;
@@ -182,6 +179,7 @@ button[disabled] {
 
 .create-button {
   background-color: #1db954;
+  width: 10%;
   border: 0;
   align-items: center;
   border-radius: 50px;

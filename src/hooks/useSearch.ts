@@ -1,14 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useAppSelector } from '../reduce/hooks';
-import { TrackType } from '../type';
+import { setSearch } from '../components/search-form/searchSlice';
+import { useAppDispatch, useAppSelector } from '../reduce/hooks';
 
 export default function useSearch() {
   const [searchKey, setSearchKey] = useState('');
-  const [searchResult, setSearchResult] = useState<TrackType[]>([]);
 
-  const { token } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
-  console.log(token);
+  const { token, tokenType } = useAppSelector((state) => state.auth);
 
   const handleSearch = (key: ChangeEvent<HTMLInputElement>) => {
     setSearchKey(key.target.value);
@@ -20,13 +19,13 @@ export default function useSearch() {
     await fetch(url, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `${tokenType} ${token}`,
         'Content-type': 'application/json',
       },
     })
       .then((res) => res.json())
-      .then((result) => setSearchResult(result.tracks.items));
+      .then((result) => dispatch(setSearch(result.tracks.items)));
   };
 
-  return [searchResult, handleSearch, searchTrack] as const;
+  return [handleSearch, searchTrack] as const;
 }

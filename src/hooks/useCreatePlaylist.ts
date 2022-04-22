@@ -1,5 +1,6 @@
 import { FormEvent } from 'react';
-import { setCreatePlaylist } from '../pages/home/createPlaylistSlice';
+// import { useNavigate } from 'react-router-dom';
+import { setCreatePlaylist } from '../components/create-playlist/createPlaylistSlice';
 import { useAppDispatch, useAppSelector } from '../reduce/hooks';
 import useUser from './useUser';
 
@@ -8,6 +9,7 @@ export default function useCreatePlaylist() {
 
   const { token } = useAppSelector((state) => state.auth);
 
+  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const createPlaylist = (
@@ -24,13 +26,16 @@ export default function useCreatePlaylist() {
       body: JSON.stringify({
         name: inputPlaylist.title,
         description: inputPlaylist.description,
-        public: false,
+        public: true,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         dispatch(setCreatePlaylist(data));
       });
+    // setTimeout(() => {
+    //   navigate('/playlist');
+    // }, 200);
   };
 
   return [createPlaylist] as const;

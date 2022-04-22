@@ -3,6 +3,11 @@ import { useAppSelector } from '../reduce/hooks';
 
 export default function useUser() {
   const [isUser, setUser] = useState<null | {
+    images: [
+      {
+        url: string;
+      }
+    ];
     display_name: string;
     id: string;
   }>(null);

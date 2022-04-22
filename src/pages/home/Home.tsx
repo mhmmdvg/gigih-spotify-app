@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import Button from '../../components/button/Button';
-import SearchForm from '../../components/search-form/SearchForm';
 import Track from '../../components/track/Track';
-import useAddPlaylist from '../../hooks/useAddPlaylist';
-import useSearch from '../../hooks/useSearch';
 import useSelectedTrack from '../../hooks/useSelectedTrack';
-import useUser from '../../hooks/useUser';
-import { useAppDispatch } from '../../reduce/hooks';
+import { useAppSelector } from '../../reduce/hooks';
 import { CombineTrackType } from '../../type';
-import { setToken } from '../auth/authSlice';
-import CreatePlaylist from './CreatePlaylist';
+import CreatePlaylist from '../../components/create-playlist/CreatePlaylist';
+import { millisToMinutesAndSeconds } from '../../services/msToMinute';
 
 export default function Home() {
-  const [selected, setSelected, handleSelected] = useSelectedTrack();
-  const [searchResult, handleSearch, searchTrack] = useSearch();
-  const [combineTrack, setCombineTrack] = useState<CombineTrackType[]>([]);
-  const [isUser] = useUser();
-  const [trackPlaylist, addToPlaylist] = useAddPlaylist();
+  const [selected, handleSelected] = useSelectedTrack();
 
-  const dispatch = useAppDispatch();
+  const [combineTrack, setCombineTrack] = useState<CombineTrackType[]>([]);
+
+  const { searchResult } = useAppSelector((state) => state.search);
 
   useEffect(() => {
     const combineItem = searchResult.map((track) => ({
@@ -29,42 +22,14 @@ export default function Home() {
   }, [searchResult, selected]);
 
   return (
-    <>
-      <h3>{isUser?.display_name}</h3>
-      <p>{isUser?.id}</p>
+    <div className="w-full py-10 px-4">
+      <CreatePlaylist />
 
-      <CreatePlaylist trackPlaylist={trackPlaylist} />
-
-      <SearchForm onChange={handleSearch} onSubmit={searchTrack} />
-
-      {selected.length === 0 ? null : <h1>Selected Track</h1>}
-      <div className="track-container">
-        {selected.map((track) => (
-          <Track
-            key={track.id}
-            images={track.album.images[0]?.url}
-            title={track.name}
-            artist={track.artists[0]?.name}
-            albumName={track.album.name}
-            onClick={() => handleSelected(track)}
-          >
-            Deselect
-          </Track>
-        ))}
-      </div>
-      {selected.length === 0 ? null : (
-        <Button
-          onClick={() => {
-            addToPlaylist(selected);
-            setSelected([]);
-          }}
-        >
-          Add to Playlist
-        </Button>
+      <hr className="my-6" />
+      {combineTrack.length === 0 ? null : (
+        <h1 className="my-6 text-3xl font-extrabold">Songs</h1>
       )}
-
-      {combineTrack.length === 0 ? null : <h1>Track List</h1>}
-      <div className="track-container">
+      <div className="grid grid-cols-2">
         {combineTrack.map((track) => (
           <Track
             key={track.id}
@@ -72,13 +37,13 @@ export default function Home() {
             title={track.name}
             artist={track.artists[0]?.name}
             albumName={track.album.name}
+            duration={millisToMinutesAndSeconds(track.duration_ms)}
             onClick={() => handleSelected(track)}
           >
             {track.isSelected ? 'Deselect' : 'Select'}
           </Track>
         ))}
       </div>
-      <Button onClick={() => dispatch(setToken(''))}>Logout</Button>
-    </>
+    </div>
   );
 }

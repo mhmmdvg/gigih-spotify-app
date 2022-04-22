@@ -7,9 +7,11 @@ import AppRoutes from './routes/AppRoutes';
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <AppRoutes />
-      </div>
+      {/* <div className="App"> */}
+
+      <AppRoutes />
+
+      {/* </div> */}
     </Provider>
   );
 }

@@ -14,6 +14,7 @@ type Selected = {
       }
     ];
   };
+  duration_ms?: number;
 };
 
 export type CombineTrack = {
@@ -32,5 +33,6 @@ export type CombineTrack = {
       }
     ];
   };
+  duration_ms?: number;
   isSelected?: Selected;
 };

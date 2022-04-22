@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #f9fafb;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M489,281.872h847.03V967.96H489V281.872h0Z"/>
+  <path id="Triangle_1" data-name="Triangle 1" class="cls-1" d="M639.464,64L748.242,281.874H530.686Z"/>
+  <path id="Triangle_1-2" data-name="Triangle 1" class="cls-1" d="M1185.64,64l108.78,217.874H1076.86Z"/>
+  <path class="cls-2" d="M842,793l32,33,54-53,53,52,32-33-85-86Z"/>
+  <path class="cls-2" d="M1183,1040"/>
+  <path class="cls-3" d="M637.122,462.66h97.205V652.718H637.122V462.66h0Z"/>
+  <path class="cls-3" d="M1118.52,462.66h97.2V652.718h-97.2V462.66h0Z"/>
+</svg>

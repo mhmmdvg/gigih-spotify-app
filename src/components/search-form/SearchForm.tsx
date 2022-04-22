@@ -9,15 +9,19 @@ export default function SearchForm(props: SearchFormProps) {
   const { onSubmit, onChange } = props;
 
   return (
-    <form className="form-search" onSubmit={onSubmit}>
+    <form className="mt-2" onSubmit={onSubmit}>
       <input
-        className="input-search"
+        className="bg-gray-200 p-2 w-80 rounded-l-md"
         onChange={onChange}
         type="text"
         name="search"
         placeholder="Search for a song"
       />
-      <input className="input-submit" type="submit" value="Search" />
+      <input
+        className="p-2 bg-black text-white rounded-r-md"
+        type="submit"
+        value="Search"
+      />
     </form>
   );
 }
