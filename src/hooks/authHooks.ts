@@ -39,8 +39,6 @@ export function useLogin() {
   const redirectSpotifyAuth = (): void => {
     const { REACT_APP_CLIENT_ID, REACT_APP_REDIRECT_URI } = process.env;
     const SCOPES = ['playlist-modify-public', 'playlist-modify-private'];
-    console.log(process.env.REACT_APP_REDIRECT_URI);
-    // const REDIRECT_URI = 'http://localhost:3000/';
     const loginUrl = `https://accounts.spotify.com/authorize?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}&scope=${SCOPES}&response_type=token&show_dialog=true`;
     window.location.href = loginUrl;
   };
