@@ -18,13 +18,6 @@ export default function Header() {
         {location.pathname === '/home' ? (
           <SearchForm onChange={handleSearch} onSubmit={searchTrack} />
         ) : undefined}
-        {currentPlaylist.map((item) => (
-          <div key={item.id}>
-            {location.pathname === `/playlist/${item.id}` ? (
-              <p className="text-black text-xl text-left">Back</p>
-            ) : undefined}
-          </div>
-        ))}
 
         <DropDown />
       </div>
