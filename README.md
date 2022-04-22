@@ -15,3 +15,8 @@ Mhmmdvg Create Playlist App is my final project for Generasi GIGIH 2.0. You can 
 - Tailwind for UI Library and Headless UI.
 - Hero icons for icons.
 - Hosted in Vercel
+
+## How to Run this APP in Local
+
+First you must clone my project
+``git clone https://github.com/mhmmdvg/gigih-spotify-app.git``
