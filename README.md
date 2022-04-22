@@ -52,3 +52,19 @@ Run the project
 ```
 npm start or yarn start
 ```
+
+## Screenshot Web App
+- Login
+<img width="1440" alt="Screen Shot 2022-04-22 at 22 20 28" src="https://user-images.githubusercontent.com/57744555/164745031-b7b7950a-7f47-4a56-b0b9-889789ac611f.png">
+
+- Home (Create Playlist)
+<img width="1440" alt="Screen Shot 2022-04-22 at 22 21 14" src="https://user-images.githubusercontent.com/57744555/164745138-b52da14e-7c13-48ab-9056-75a1c6e3516c.png">
+
+<img width="1440" alt="Screen Shot 2022-04-22 at 22 21 51" src="https://user-images.githubusercontent.com/57744555/164745179-40c20c72-d8d1-4986-970a-0bc2d1ca9e80.png">
+
+- Playlist
+<img width="1440" alt="Screen Shot 2022-04-22 at 22 21 36" src="https://user-images.githubusercontent.com/57744555/164745277-ecf488ac-a50a-4e5f-bd2b-08c781ec1f5e.png">
+
+- Detail Playlist (View Song in Playlist)
+<img width="1440" alt="Screen Shot 2022-04-22 at 22 21 43" src="https://user-images.githubusercontent.com/57744555/164745458-e32d2bfb-3f8a-4004-97d2-2dc6063536ac.png">
+
