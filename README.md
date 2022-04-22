@@ -19,4 +19,6 @@ Mhmmdvg Create Playlist App is my final project for Generasi GIGIH 2.0. You can 
 ## How to Run this APP in Local
 
 First you must clone my project
-`git clone https://github.com/mhmmdvg/gigih-spotify-app.git`
+```
+git clone https://github.com/mhmmdvg/gigih-spotify-app.git
+```
