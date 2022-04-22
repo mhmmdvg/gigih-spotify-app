@@ -49,9 +49,9 @@ export function useCurrentPlaylistSidebar() {
         .then((result) => setCurrentPlaylistSidebar(result.items));
     };
 
-    const interval = setInterval(getCurrentPlaylistSidebar, 300);
-
-    return () => clearInterval(interval);
+    // const interval = setInterval(getCurrentPlaylistSidebar, 300);
+    getCurrentPlaylistSidebar();
+    // return () => clearInterval(interval);
   }, []);
 
   return [currentPlaylistSidebar] as const;
