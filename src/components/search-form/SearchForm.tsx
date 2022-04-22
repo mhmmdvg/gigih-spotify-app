@@ -11,7 +11,7 @@ export default function SearchForm(props: SearchFormProps) {
   return (
     <form className="mt-2" onSubmit={onSubmit}>
       <input
-        className="bg-gray-200 p-2 w-80 rounded-l-md"
+        className="bg-gray-200 p-2 w-72 rounded-l-md"
         onChange={onChange}
         type="text"
         name="search"
