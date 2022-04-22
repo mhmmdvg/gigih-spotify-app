@@ -3,6 +3,7 @@ import SearchSlice from '../components/search-form/searchSlice';
 import AuthSlice from '../pages/auth/authSlice';
 import CreatePlaylistSlice from '../components/create-playlist/createPlaylistSlice';
 import SelectSlice from '../pages/home/selectedSlice';
+import PlaylistSlice from '../pages/playlist/playlistSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     search: SearchSlice,
     createPlaylist: CreatePlaylistSlice,
     selectTrack: SelectSlice,
+    playlist: PlaylistSlice,
   },
 });
 

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import CatLogo from '../../assets/icons/cat-logo2.svg';
-import { useCurrentPlaylistSidebar } from '../../hooks/useCurrentPlaylist';
+import { useCurrentPlaylist } from '../../hooks/useCurrentPlaylist';
+import { useAppSelector } from '../../reduce/hooks';
+import { CurrentPlaylistTypes } from '../../type';
 
 interface LinkNavItemProps {
   name: string;
@@ -14,7 +16,13 @@ const LinkNavItems: Array<LinkNavItemProps> = [
 ];
 
 export default function Sidebar() {
-  const [currentPlaylistSidebar] = useCurrentPlaylistSidebar();
+  const [getCurrentPlaylist] = useCurrentPlaylist();
+
+  const { current } = useAppSelector((state) => state.playlist);
+
+  useEffect(() => {
+    getCurrentPlaylist();
+  }, []);
 
   const activeClassName = 'text-black font-medium text-base';
 
@@ -41,7 +49,7 @@ export default function Sidebar() {
       <div className="mb-10 px-8">
         <hr />
       </div>
-      {currentPlaylistSidebar.map((playlist) => (
+      {current.map((playlist: CurrentPlaylistTypes) => (
         <div className="mb-10" key={playlist.id}>
           <h3 className="mx-6 mb-2 text-base text-gray-400 tracking-widest hover:text-black transition-all duration-280 cursor-pointer">
             <NavLink
