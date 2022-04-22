@@ -25,9 +25,9 @@ export const useTokenFromSpotifyAuth = () => {
         window.location.hash
       );
 
-      localStorage.clear();
-      localStorage.setItem('access_token', access_token);
-      localStorage.setItem('token_type', token_type);
+      // localStorage.clear();
+      // localStorage.setItem('access_token', access_token);
+      // localStorage.setItem('token_type', token_type);
       dispatch(setToken(access_token));
       dispatch(setTypeToken(token_type));
     }
@@ -37,10 +37,11 @@ export const useTokenFromSpotifyAuth = () => {
 
 export function useLogin() {
   const redirectSpotifyAuth = (): void => {
-    const { REACT_APP_CLIENT_ID } = process.env;
+    const { REACT_APP_CLIENT_ID, REACT_APP_REDIRECT_URI } = process.env;
     const SCOPES = ['playlist-modify-public', 'playlist-modify-private'];
-    const REDIRECT_URI = 'http://localhost:3000/';
-    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}&response_type=token&show_dialog=true`;
+    console.log(process.env.REACT_APP_REDIRECT_URI);
+    // const REDIRECT_URI = 'http://localhost:3000/';
+    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}&scope=${SCOPES}&response_type=token&show_dialog=true`;
     window.location.href = loginUrl;
   };
 

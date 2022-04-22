@@ -1,10 +1,14 @@
-# Getting Started with Create React App
+# Generasi GIGIH 2.0 Final Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Mhmmdvg Create Playlist App is my final project for Generasi GIGIH 2.0. You can create and add your playlist with this App :).
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Create Playlist this feature for create new playlist. You can add your favorite music to your playlist.
+- Add Song to Playlist this feature for add song to your playlist.
+- View Playlist Songs this feature for view your playlist songs.
+- Search Song this feature for search song.
+- You can see your profile with this App
 
 ### `npm start`
 
