@@ -15,7 +15,11 @@ export default function Header() {
         {location.pathname === '/home' ? (
           <SearchForm onChange={handleSearch} onSubmit={searchTrack} />
         ) : undefined}
+<<<<<<< HEAD
         {location.pathname === '/playlist' ? <div /> : <div />}
+=======
+
+>>>>>>> ff444fbae4f441f2d04be931739ef7a884f10927
         <DropDown />
       </div>
       <Outlet />
