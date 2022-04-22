@@ -22,3 +22,17 @@ First you must clone my project
 ```
 git clone https://github.com/mhmmdvg/gigih-spotify-app.git
 ```
+Open the project
+```
+cd gigih-spotify-app
+```
+Install node_modules
+```
+npm install or yarn
+```
+Setting the environment variable, with your Client ID in Spotify Dashboard and Add your domain localhost to Spotify Dashboard API
+
+Run the project
+```
+npm start or yarn start
+```
