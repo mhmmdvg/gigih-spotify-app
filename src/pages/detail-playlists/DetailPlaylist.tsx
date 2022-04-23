@@ -34,7 +34,7 @@ export default function DetailPlaylist() {
         {current
           .filter((item: CurrentPlaylistTypes) => item.id === id)
           .map((item: CurrentPlaylistTypes) => (
-            <React.Fragment key={item.id}>
+            <div key={item.id}>
               <img
                 className="w-60 mr-4"
                 src={item.images[0]?.url}
@@ -45,7 +45,7 @@ export default function DetailPlaylist() {
 
                 <h3>{item.description}</h3>
               </div>
-            </React.Fragment>
+            </div>
           ))}
       </div>
 
