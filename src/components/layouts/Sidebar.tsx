@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import CatLogo from '../../assets/icons/cat-logo2.svg';
 import { useCurrentPlaylist } from '../../hooks/useCurrentPlaylist';
-import { useAppSelector } from '../../reduce/hooks';
+// import { useAppSelector } from '../../reduce/hooks';
 import { CurrentPlaylistTypes } from '../../type';
 
 interface LinkNavItemProps {
@@ -16,13 +16,9 @@ const LinkNavItems: Array<LinkNavItemProps> = [
 ];
 
 export default function Sidebar() {
-  const [getCurrentPlaylist] = useCurrentPlaylist();
+  const [currentPlaylist] = useCurrentPlaylist();
 
-  const { current } = useAppSelector((state) => state.playlist);
-
-  useEffect(() => {
-    getCurrentPlaylist();
-  }, []);
+  console.log('currentPlaylist', currentPlaylist);
 
   const activeClassName = 'text-black font-medium text-base';
 
@@ -49,21 +45,22 @@ export default function Sidebar() {
       <div className="mb-10 px-8">
         <hr />
       </div>
-      {current.map((playlist: CurrentPlaylistTypes) => (
-        <div className="mb-10" key={playlist.id}>
-          <h3 className="mx-6 mb-2 text-base text-gray-400 tracking-widest hover:text-black transition-all duration-280 cursor-pointer">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? activeClassName : undefined
-              }
-              to={`/playlist/${playlist.id}`}
-            >
-              {' '}
-              {playlist.name}{' '}
-            </NavLink>
-          </h3>
-        </div>
-      ))}
+      {currentPlaylist &&
+        currentPlaylist.map((playlist: CurrentPlaylistTypes) => (
+          <div className="mb-10" key={playlist.id}>
+            <h3 className="mx-6 mb-2 text-base text-gray-400 tracking-widest hover:text-black transition-all duration-280 cursor-pointer">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+                to={`/playlist/${playlist.id}`}
+              >
+                {' '}
+                {playlist.name}{' '}
+              </NavLink>
+            </h3>
+          </div>
+        ))}
     </div>
   );
 }

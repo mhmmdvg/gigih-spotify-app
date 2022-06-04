@@ -18,7 +18,7 @@ export default function SearchForm(props: SearchFormProps) {
         placeholder="Search for a song"
       />
       <input
-        className="p-2 bg-black text-white rounded-r-md cursor-pointer"
+        className="py-2 px-1 bg-black text-white rounded-r-md cursor-pointer"
         type="submit"
         value="Search"
       />

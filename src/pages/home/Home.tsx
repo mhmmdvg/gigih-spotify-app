@@ -8,9 +8,7 @@ import { millisToMinutesAndSeconds } from '../../services/msToMinute';
 
 export default function Home() {
   const [selected, handleSelected] = useSelectedTrack();
-
   const [combineTrack, setCombineTrack] = useState<CombineTrackType[]>([]);
-
   const { searchResult } = useAppSelector((state) => state.search);
 
   useEffect(() => {
