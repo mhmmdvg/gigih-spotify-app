@@ -1,5 +1,8 @@
 # Generasi GIGIH 2.0 Final Project
 
+![createplaylist-spotify](https://github.com/mhmmdvg/gigih-spotify-app/assets/57744555/4a0ed270-e819-4410-ae66-4bdaffec318b)
+
+
 Mhmmdvg Create Playlist App is my final project for Generasi GIGIH 2.0. You can create and add your playlist with this App :).
 
 ## Features
